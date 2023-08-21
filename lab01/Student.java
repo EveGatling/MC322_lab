@@ -1,8 +1,25 @@
 public class Student {
-    String name;
-    String email;
-    int ra;
-    int[] borrowedBooksIds;
+    private String name;
+    private String email;
+    private int ra;
+    private int[] borrowedBooksIds;
+
+    //Getters
+    public String getName(){
+        return name;
+    }
+
+    public String getEmail(){
+        return email;
+    }
+
+    public int getRa(){
+        return ra;
+    }
+
+    public int[] getBorrowedBooksIds(){
+        return borrowedBooksIds;
+    }
 
 
     //Constructor
