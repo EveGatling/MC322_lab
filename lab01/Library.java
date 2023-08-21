@@ -1,7 +1,7 @@
 public class Library {
-    private book[] allBooks;//Stores all books that belong to the library by ID
+    private book[] allBooks; //Stores and creates books
     private String[] domains;
-    private Employee[] employees; //Stores all employees by ID
+    private Employee[] employees; //Stores and creates employees
 
     public book[] getAllBooks(){
         return allBooks;
