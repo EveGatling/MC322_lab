@@ -4,20 +4,20 @@ package library.users;
 
 public class Employee extends User {
 	//Attributes
-	private String setor;
+	private String sector;
 	
 	//Constructor 
-	public Employee(String name, String email, String setor, String adress, Integer contact) {
+	public Employee(String name, String email, String sector, String adress, Integer contact) {
 		super(name, email, adress, contact);
-		this.setor = setor;
+		this.sector = sector;
 	}
 	
 	// Encapsulation (Getters and Setters)
-	public String getSetor() {
-		return setor;
+	public String getsector() {
+		return sector;
 	}
 
-	public void setSetor(String setor) {
-		this.setor = setor;
+	public void setsector(String sector) {
+		this.sector = sector;
 	}
 }
