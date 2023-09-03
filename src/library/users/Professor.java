@@ -7,8 +7,8 @@ public class Professor extends User{
 	private String faculty_institute;
 	
 	//Constructor 
-	public Professor(String name, String email, String faculty_institute) {
-		super(name, email);
+	public Professor(String name, String email, String faculty_institute, String adress, Integer contact) {
+		super(name, email, adress, contact);
 		this.faculty_institute = faculty_institute;
 	}
 	

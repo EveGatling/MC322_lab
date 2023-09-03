@@ -7,8 +7,8 @@ public class Employee extends User {
 	private String setor;
 	
 	//Constructor 
-	public Employee(String name, String email, String setor) {
-		super(name, email);
+	public Employee(String name, String email, String setor, String adress, Integer contact) {
+		super(name, email, adress, contact);
 		this.setor = setor;
 	}
 	
