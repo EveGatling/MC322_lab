@@ -1,33 +1,36 @@
 package library.users;
+
+import java.time.LocalDate;
+
 import library.actions.Loan;
 import library.actions.Reservation;
 
-
 public class User {
-	//Attributes
-	//An user will have many reservations and loans, for now we are gonna have only one of each.
-	
+	// Attributes
+	// An user will have many reservations and loans, for while we are gonna have
+	// only one of each.
+
 	protected String name;
 	protected String email;
-	protected String adress;
-	protected Integer contact;
 	protected Reservation reservation;
 	protected Loan loan;
+	protected String address;
+	protected String phone;
+	protected LocalDate registrationDate;
 	// -> add punishment/history
-	
-	//Constructor 
-	public User(String name, String email, String adress, Integer contact) {
+
+	// Constructor
+	public User(String name, String email) {
 		this.name = name;
 		this.email = email;
-		this.adress = adress;
-		this.contact = contact;
+		this.registrationDate = LocalDate.now();
 	}
 
-	
 	// Encapsulation (Getters and Setters)
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -35,29 +38,25 @@ public class User {
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getAdress(){
-		return adress;
-	}
-	public void setAdress(){
-
 	}
 
 	public Reservation getReservation() {
 		return reservation;
 	}
+
 	public void setReservation(Reservation reservation) {
 		this.reservation = reservation;
 	}
-	
+
 	public Loan getLoan() {
 		return loan;
 	}
+
 	public void setLoan(Loan loan) {
 		this.loan = loan;
 	}
-	
+
 }
