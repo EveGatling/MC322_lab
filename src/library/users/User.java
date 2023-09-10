@@ -1,34 +1,59 @@
 package library.users;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-import library.actions.Loan;
+import java.util.Vector;
+
 import library.actions.Reservation;
+import library.media.Media;
 
 public class User {
-	// Attributes
-	// An user will have many reservations and loans, for while we are gonna have
-	// only one of each.
-
+	// Essential Attributes
+	protected int id;
+	protected String phone;
 	protected String name;
 	protected String email;
-	protected Reservation reservation;
-	protected Loan loan;
+	protected long registrationNumber;
 	protected String address;
-	protected String phone;
-	protected LocalDate registrationDate;
-	// -> add punishment/history
+	protected LocalDateTime registrationDate;
+	protected Vector<Reservation> reservations;
 
 	// Constructor
-	public User(String name, String email) {
+	public User(int id, long registrationNumber, String name, String email, String phone, String address) {
+		this.id = id;
 		this.name = name;
 		this.email = email;
-		this.registrationDate = LocalDate.now();
+		this.registrationNumber = registrationNumber;
+		this.registrationDate = LocalDateTime.now();
+
+		this.phone = phone;
+		this.address = address;
+		this.reservations = new Vector<>();
+
 	}
 
-	// Encapsulation (Getters and Setters)
+	public Reservation createReservation(LocalDateTime startDate, int days) {
+		return new Reservation(startDate, days, this);
+	}
+
+	public int getId() {
+		return this.id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getPhone() {
+		return this.phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	public void setName(String name) {
@@ -36,27 +61,47 @@ public class User {
 	}
 
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	public Reservation getReservation() {
-		return reservation;
+	public long getRegistrationNumber() {
+		return this.registrationNumber;
 	}
 
-	public void setReservation(Reservation reservation) {
-		this.reservation = reservation;
+	public void setRegistrationNumber(long registrationNumber) {
+		this.registrationNumber = registrationNumber;
 	}
 
-	public Loan getLoan() {
-		return loan;
+	public String getAddress() {
+		return this.address;
 	}
 
-	public void setLoan(Loan loan) {
-		this.loan = loan;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
+	public LocalDateTime getRegistrationDate() {
+		return this.registrationDate;
+	}
+
+	public void setRegistrationDate(LocalDateTime registrationDate) {
+		this.registrationDate = registrationDate;
+	}
+
+	// Reservation Management
+	public Vector<Reservation> getReservations() {
+		return this.reservations;
+	}
+
+	public void addReservation(Reservation reservation) {
+		this.reservations.add(reservation);
+	}
+
+	public void removeReservation(int reservationId) {
+		this.reservations.removeIf(obj -> (obj.getId() == reservationId));
+	}
 }

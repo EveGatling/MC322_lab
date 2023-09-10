@@ -1,93 +1,93 @@
 package library.actions;
-import java.util.Date;
-import java.util.Calendar;
-import library.multimediacontent.Media;
+
+import java.util.Vector;
+import java.time.LocalDateTime;
+
+import library.constants.Reserve.ReserveStatus;
+import library.media.Media;
 import library.users.User;
 
 public class Loan {
-	//Attributes
-	private Media media;
+	// Attributes
+	private int id;
 	private User user;
-	private Date loanDate;
-	private Date expectedDate;
-	private Date returnDate;
-	
-	//Class Constructor
-	public Loan(Media media, User user, Date loanDate) {
-		this.media = media;
-		this.user = user;
-		setLoanDate(loanDate);
-	}
-	
-	//Methods
-	public static Date renewLoan(Loan loan) {
-		Date data = loan.getExpectedDate();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(data);
-        calendar.add(Calendar.WEEK_OF_YEAR, 1);
-        return calendar.getTime();
-    }
-	
-	public void devolution(Loan loan, Date todayDate) {
-		if(loan.getMedia().getReservation() != null) {
-			Reservation reservation = loan.getMedia().getReservation();
-			reservation.startReservation(reservation, todayDate);
-		}
-		
-		else {
-			Media media = loan.getMedia();
-			media.setAvailable(true);
-			
-			User user = loan.getUser();
-			user.setLoan(null);
-		}
-		
-		
-		//Dúvida: como apagar um objeto?
-	}
-	
+	private Vector<Media> media;
+	private Reservation reservation;
+	private LocalDateTime beginningDate;
+	private LocalDateTime returnDate;
 
-	// Encapsulation (Getters and Setters)
-	public User getUser() {
-		return user;
+	// Class Constructor
+	public Loan(int id, User user, Reservation reservation, LocalDateTime beginningDate, LocalDateTime returnDate) {
+		// Check if book was reserved. If not, create an instant reservation.
+		if (reservation == null) {
+			throw new Error("Loan cannot be instantiated without a previous reservation");
+		}
+
+		this.media = reservation.getMedia();
+		this.user = user;
+		this.beginningDate = beginningDate;
+		this.returnDate = returnDate;
+		this.reservation = reservation;
+		this.id = id;
 	}
+
+	public void startLoan() {
+		this.reservation.setReservationStatus(ReserveStatus.LOANED);
+
+		// Generate statistics on the amount of times it was loaned
+		for (Media entry : this.media) {
+			entry.increaseTimesLoaned();
+		}
+	}
+
+	public void endLoan() {
+		this.reservation.setReservationStatus(ReserveStatus.RETURNED);
+		this.reservation.returnMedia();
+	}
+
+	public void renewLoan(LocalDateTime newReturnDate) {
+		this.returnDate = newReturnDate;
+		this.reservation.setEndingDate(newReturnDate);
+	}
+
+	// Getters and Setters
+	public int getId() {
+		return this.id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public User getUser() {
+		return this.user;
+	}
+
 	public void setUser(User user) {
 		this.user = user;
 	}
-	public Media getMedia() {
-		return media;
+
+	public Vector<Media> getMedia() {
+		return this.media;
 	}
-	public void setMedia(Media media) {
+
+	public void setMedia(Vector<Media> media) {
 		this.media = media;
 	}
-	public Date getExpectedDate() {
-		return expectedDate;
+
+	public Reservation getReservation() {
+		return this.reservation;
 	}
-	public void setExpectedDate(Date expectedDate) {
-		this.expectedDate = expectedDate;
+
+	public LocalDateTime getBeginningDate() {
+		return this.beginningDate;
 	}
-	public Date getReturnDate() {
-		return returnDate;
+
+	public void setBeginningDate(LocalDateTime beginningDate) {
+		this.beginningDate = beginningDate;
 	}
-	public void setReturnDate(Date returnDate) {
-		this.returnDate = returnDate;
+
+	public LocalDateTime getReturnDate() {
+		return this.returnDate;
 	}
-	public Date getLoanDate() {
-		return loanDate;
-	}
-	public void setLoanDate(Date loanDate) {
-		this.loanDate = loanDate;
-		
-		Date data = loanDate;
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(data);
-        calendar.add(Calendar.WEEK_OF_YEAR, 1);
-        setExpectedDate(calendar.getTime());
-	}
-	
-	// MAIN
-	public static void main(String[] args) {
-		
-	}
-	
 }

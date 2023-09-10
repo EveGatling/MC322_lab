@@ -5,39 +5,20 @@ package library.users;
 public class Student extends User {
 	// Attributes
 	private String course;
-	private int ra; // Registration
-	private String degree;
 
-	// Constructor
-	public Student(String name, String email, String course, int ra, String degree) {
-		super(name, email);
-		this.course = course;
-		this.degree = degree;
-		this.ra = ra;
+	public Student(int id, String name, int registrationNumber) {
+		this(id, name, null, registrationNumber, null, null);
 	}
 
-	// Encapsulation (Getters and Setters)
+	public Student(int id, String name, String email, int registrationNumber, String phone, String address) {
+		super(id, registrationNumber, name, email, phone, address);
+	}
+
 	public String getCourse() {
-		return course;
+		return this.course;
 	}
 
 	public void setCourse(String course) {
 		this.course = course;
-	}
-
-	public int getRa() {
-		return ra;
-	}
-
-	public void setRa(int ra) {
-		this.ra = ra;
-	}
-
-	public String getDegree() {
-		return degree;
-	}
-
-	public void setDegree(String degree) {
-		this.degree = degree;
 	}
 }
