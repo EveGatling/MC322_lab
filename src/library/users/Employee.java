@@ -3,21 +3,19 @@ package library.users;
 //This class is an extension of User class
 
 public class Employee extends User {
-	//Attributes
-	private String setor;
-	
-	//Constructor 
-	public Employee(String name, String email, String setor) {
-		super(name, email);
-		this.setor = setor;
-	}
-	
-	// Encapsulation (Getters and Setters)
-	public String getSetor() {
-		return setor;
+	// Attributes
+	private String sector;
+
+	// Constructor
+	public Employee(int id, String name, String email, int registrationNumber, String phone, String address) {
+		super(id, registrationNumber, name, email, phone, address);
 	}
 
-	public void setSetor(String setor) {
-		this.setor = setor;
+	public String getSector() {
+		return sector;
+	}
+
+	public void setSector(String setor) {
+		this.sector = setor;
 	}
 }

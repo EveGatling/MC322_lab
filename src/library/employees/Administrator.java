@@ -1,11 +1,11 @@
 package library.employees;
+
 import library.users.Employee;
 
 public class Administrator extends Employee {
 
-	public Administrator(String name, String email, String setor) {
-		super(name, email, setor);
-		// TODO Auto-generated constructor stub
+	public Administrator(int id, String name, String email, int registrationNumber, String phone, String address) {
+		super(id, name, email, registrationNumber, phone, address);
 	}
 
 }
