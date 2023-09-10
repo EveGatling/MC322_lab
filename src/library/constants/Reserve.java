@@ -10,6 +10,12 @@ public class Reserve {
     RETURNED
   }
 
+  public static enum FineStatus {
+    NO_FINE,
+    PAID_OUT,
+    AWAITING_PAYMENT
+  }
+
   public static int getReserveTimeLimit(User user) {
     if (user instanceof Student)
       return 15;

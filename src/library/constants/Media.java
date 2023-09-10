@@ -20,4 +20,11 @@ public final class Media {
     EBOOK,
     OTHER
   }
+
+  public static enum MediaFormat {
+    AUDIO,
+    VIDEO,
+    SOFTWARE,
+    PHYSICAL
+  }
 }

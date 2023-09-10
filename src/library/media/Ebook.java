@@ -1,6 +1,6 @@
 package library.media;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import library.constants.Media.*;
 
@@ -12,7 +12,7 @@ public class Ebook extends Media {
 	private String fileFormat;
 	private String accessPath;
 	private String accessRequirements;
-	private LocalDate availabilityDate;
+	private LocalDateTime availabilityDate;
 
 	public Ebook(String title, String publisher, String genre, String summary, String coverUrl, MediaType type, int year,
 			int id, String author) {
@@ -24,7 +24,9 @@ public class Ebook extends Media {
 		this.fileFormat = ".pdf";
 		this.accessPath = null;
 		this.accessRequirements = null;
-		this.availabilityDate = LocalDate.now();
+		this.availabilityDate = LocalDateTime.now();
+
+		this.format = MediaFormat.SOFTWARE;
 	}
 
 	public String getAuthor() {
@@ -75,11 +77,11 @@ public class Ebook extends Media {
 		this.accessRequirements = accessRequirements;
 	}
 
-	public LocalDate getAvailabilityDate() {
+	public LocalDateTime getAvailabilityDate() {
 		return this.availabilityDate;
 	}
 
-	public void setAvailabilityDate(LocalDate availabilityDate) {
+	public void setAvailabilityDate(LocalDateTime availabilityDate) {
 		this.availabilityDate = availabilityDate;
 	}
 }

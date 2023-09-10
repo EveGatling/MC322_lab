@@ -18,12 +18,15 @@ public class Media {
 	protected Domain domain;
 
 	// Additional Attributes
-	protected String format;
+	protected MediaFormat format;
 	protected String locationShelf;
 	protected String locationBookcase;
 	protected PhysicalQuality quality;
 	protected int numberCopies;
 	protected int availableCopies;
+
+	protected int numberTimesReserved = 0;
+	protected int numberTimesLoaned = 0;
 
 	// Constructor
 	public Media(String title, String publisher, String genre, String summary, String coverUrl, MediaType type, int year,
@@ -130,11 +133,11 @@ public class Media {
 		this.domain = domain;
 	}
 
-	public String getFormat() {
+	public MediaFormat getFormat() {
 		return this.format;
 	}
 
-	public void setFormat(String format) {
+	public void setFormat(MediaFormat format) {
 		this.format = format;
 	}
 
@@ -194,6 +197,22 @@ public class Media {
 
 	public void setAvailableCopies(int availableCopies) {
 		this.availableCopies = availableCopies;
+		this.isAvailable = availableCopies > 0;
 	}
 
+	public void increaseTimesReserved() {
+		this.numberTimesReserved += 1;
+	}
+
+	public void increaseTimesLoaned() {
+		this.numberTimesLoaned += 1;
+	}
+
+	public int getTimesReserved() {
+		return this.numberTimesReserved;
+	}
+
+	public int getTimesLoaned() {
+		return this.numberTimesLoaned;
+	}
 }

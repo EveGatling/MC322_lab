@@ -16,6 +16,8 @@ public class Book extends Media {
 		this.author = author;
 		this.isbn = isbn;
 		this.edition = 0;
+
+		this.format = MediaFormat.PHYSICAL;
 	}
 
 	public int getEdition() {

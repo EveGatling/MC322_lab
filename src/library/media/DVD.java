@@ -18,6 +18,8 @@ public class DVD extends Media {
 		this.cast = new Vector<String>();
 		this.availableSubtitles = new Vector<String>();
 		this.totalDuration = 0;
+
+		this.format = MediaFormat.VIDEO;
 	}
 
 	// Getters and Setters

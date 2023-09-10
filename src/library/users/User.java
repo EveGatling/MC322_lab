@@ -1,6 +1,6 @@
 package library.users;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import java.util.Vector;
 
@@ -15,7 +15,7 @@ public class User {
 	protected String email;
 	protected long registrationNumber;
 	protected String address;
-	protected LocalDate registrationDate;
+	protected LocalDateTime registrationDate;
 	protected Vector<Reservation> reservations;
 
 	// Constructor
@@ -24,7 +24,7 @@ public class User {
 		this.name = name;
 		this.email = email;
 		this.registrationNumber = registrationNumber;
-		this.registrationDate = LocalDate.now();
+		this.registrationDate = LocalDateTime.now();
 
 		this.phone = phone;
 		this.address = address;
@@ -32,8 +32,8 @@ public class User {
 
 	}
 
-	public Reservation createReservation(int id, Media media, LocalDate startDate, LocalDate endDate) {
-		return new Reservation(id, startDate, endDate, this);
+	public Reservation createReservation(LocalDateTime startDate, int days) {
+		return new Reservation(startDate, days, this);
 	}
 
 	public int getId() {
@@ -84,11 +84,11 @@ public class User {
 		this.address = address;
 	}
 
-	public LocalDate getRegistrationDate() {
+	public LocalDateTime getRegistrationDate() {
 		return this.registrationDate;
 	}
 
-	public void setRegistrationDate(LocalDate registrationDate) {
+	public void setRegistrationDate(LocalDateTime registrationDate) {
 		this.registrationDate = registrationDate;
 	}
 

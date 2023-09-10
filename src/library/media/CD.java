@@ -20,6 +20,7 @@ public class CD extends Media {
 		this.artist = artist;
 		this.records = new Vector<String>();
 		this.totalDuration = 0;
+		this.format = MediaFormat.AUDIO;
 	}
 
 	public String getArtist() {

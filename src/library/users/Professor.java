@@ -6,6 +6,10 @@ public class Professor extends User {
 	// Attributes
 	private String faculty_institute;
 
+	public Professor(int id, String name, int registrationNumber) {
+		this(id, name, null, registrationNumber, null, null);
+	}
+
 	// Constructor
 	public Professor(int id, String name, String email, int registrationNumber, String phone, String address) {
 		super(id, registrationNumber, name, email, phone, address);

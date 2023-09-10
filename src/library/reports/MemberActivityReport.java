@@ -1,6 +1,6 @@
 package library.reports;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import library.actions.Reservation;
 import library.constants.Reserve.ReserveStatus;
@@ -12,12 +12,15 @@ public class MemberActivityReport {
   public int reserves;
   public int numberItemsReserved;
   public int numberItemsReturned;
-  public int totalFines;
+  public double totalFines;
+  public User user;
 
-  public MemberActivityReport(User user, LocalDate startDate, LocalDate endDate) {
+  public MemberActivityReport(User user, LocalDateTime startDate, LocalDateTime endDate) {
     if (user == null) {
       throw new Error("Failured to generate report for null user");
     }
+
+    this.user = user;
 
     for (Reservation reservation : user.getReservations()) {
       if (reservation.getBeginningDate().compareTo(startDate) < 0
@@ -45,5 +48,11 @@ public class MemberActivityReport {
       this.numberItemsReserved += reservation.getMedia().size();
       this.totalFines += totalFine;
     }
+  }
+
+  public String toString() {
+    return String.format("%s (%d, %d, %d, %d, %d, %f)", user.getName(), loans, devolutions, reserves,
+        numberItemsReserved,
+        numberItemsReturned, totalFines);
   }
 }

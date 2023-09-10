@@ -1,7 +1,7 @@
 package library.actions;
 
 import java.util.Vector;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import library.constants.Reserve.ReserveStatus;
 import library.media.Media;
@@ -13,11 +13,11 @@ public class Loan {
 	private User user;
 	private Vector<Media> media;
 	private Reservation reservation;
-	private LocalDate beginningDate;
-	private LocalDate returnDate;
+	private LocalDateTime beginningDate;
+	private LocalDateTime returnDate;
 
 	// Class Constructor
-	public Loan(int id, User user, Reservation reservation, LocalDate beginningDate, LocalDate returnDate) {
+	public Loan(int id, User user, Reservation reservation, LocalDateTime beginningDate, LocalDateTime returnDate) {
 		// Check if book was reserved. If not, create an instant reservation.
 		if (reservation == null) {
 			throw new Error("Loan cannot be instantiated without a previous reservation");
@@ -33,6 +33,11 @@ public class Loan {
 
 	public void startLoan() {
 		this.reservation.setReservationStatus(ReserveStatus.LOANED);
+
+		// Generate statistics on the amount of times it was loaned
+		for (Media entry : this.media) {
+			entry.increaseTimesLoaned();
+		}
 	}
 
 	public void endLoan() {
@@ -40,7 +45,7 @@ public class Loan {
 		this.reservation.returnMedia();
 	}
 
-	public void renewLoan(LocalDate newReturnDate) {
+	public void renewLoan(LocalDateTime newReturnDate) {
 		this.returnDate = newReturnDate;
 		this.reservation.setEndingDate(newReturnDate);
 	}
@@ -74,15 +79,15 @@ public class Loan {
 		return this.reservation;
 	}
 
-	public LocalDate getBeginningDate() {
+	public LocalDateTime getBeginningDate() {
 		return this.beginningDate;
 	}
 
-	public void setBeginningDate(LocalDate beginningDate) {
+	public void setBeginningDate(LocalDateTime beginningDate) {
 		this.beginningDate = beginningDate;
 	}
 
-	public LocalDate getReturnDate() {
+	public LocalDateTime getReturnDate() {
 		return this.returnDate;
 	}
 }
