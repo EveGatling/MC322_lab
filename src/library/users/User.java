@@ -16,7 +16,8 @@ public class User {
 	protected long registrationNumber;
 	protected String address;
 	protected LocalDateTime registrationDate;
-	protected Vector<Reservation> reservations;
+	protected List<Reservation> reservations;
+	protected List<ReservationHistory> reservationHistory;
 
 	// Constructor
 	public User(int id, long registrationNumber, String name, String email, String phone, String address) {
@@ -28,7 +29,8 @@ public class User {
 
 		this.phone = phone;
 		this.address = address;
-		this.reservations = new Vector<>();
+		this.reservations = new List<>();
+		this.reservationHistory = new List<>();
 
 	}
 
@@ -93,15 +95,24 @@ public class User {
 	}
 
 	// Reservation Management
-	public Vector<Reservation> getReservations() {
+	public List<Reservation> getReservations() {
 		return this.reservations;
+	}
+
+	public List<reservationHistory> getReservationHistory(){
+		return this.reservationHistory;
 	}
 
 	public void addReservation(Reservation reservation) {
 		this.reservations.add(reservation);
 	}
 
+	public void addReservationHistory(ReservationHistory reserveHistory){
+		this.reservationHistory.add(reserveHistory);
+	}
+
 	public void removeReservation(int reservationId) {
 		this.reservations.removeIf(obj -> (obj.getId() == reservationId));
 	}
+
 }

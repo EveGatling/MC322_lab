@@ -24,6 +24,7 @@ public class Media {
 	protected PhysicalQuality quality;
 	protected int numberCopies;
 	protected int availableCopies;
+	protected List<Comment> comment;
 
 	protected int numberTimesReserved = 0;
 	protected int numberTimesLoaned = 0;
@@ -50,6 +51,7 @@ public class Media {
 		this.format = null;
 		this.quality = PhysicalQuality.EXCELENT;
 		this.availableCopies = 0;
+		this.comment = new List<Comment>();
 	}
 
 	// Setters and Getters
@@ -214,5 +216,13 @@ public class Media {
 
 	public int getTimesLoaned() {
 		return this.numberTimesLoaned;
+	}
+
+	public List<Comment> getComment(){
+		return this.comment;
+	}
+
+	public void setComment(List<Comment> comment){
+		this.comment = comment;
 	}
 }
