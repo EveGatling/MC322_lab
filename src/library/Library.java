@@ -1,6 +1,8 @@
 package library;
 
 import java.util.Vector;
+import java.util.Map;
+import java.util.HashMap;
 
 import library.actions.Reservation;
 import library.equipments.Equipment;
@@ -10,29 +12,45 @@ import library.rooms.Room;
 import library.users.*;
 
 public class Library {
-  private Vector<Media> media;
   private Vector<Employee> employees;
   private Vector<User> clients;
+  private Map<Integer, String> media;
+  private Set<String> categories;
 
   private Vector<Equipment> equipments;
   private Vector<LibraryEvent> events;
   private Vector<Room> rooms;
 
   public Library() {
-    this.media = new Vector<>();
+    this.media = new HashMap<Integer, String="">();
     this.employees = new Vector<>();
     this.clients = new Vector<>();
     this.equipments = new Vector<>();
     this.events = new Vector<>();
     this.rooms = new Vector<>();
-  }
-
-  public Vector<Media> getMedia() {
-    return media;
+    thid.categories = new Set<>();
   }
 
   public Vector<User> getClients() {
     return this.clients;
+  }
+
+  public Map<Integer, String> getMedia(){
+    return this.media;
+  }
+
+  public void addMedia(Media media){
+    Integer id = media.getId();
+    String name = media.getTitle();
+    media.put(id, new Media(title, id));
+  }
+
+  public Set<String> getCategories(){
+    return this.categories;
+  }
+
+  public void addCategories(Set<String> categories){
+    this.categories.add(categories);
   }
 
   public Vector<User> getUsers() {
@@ -54,13 +72,6 @@ public class Library {
     }
   }
 
-  public void addMedia(Media media) {
-    this.media.add(media);
-  }
-
-  public void removeMedia(int mediaId) {
-    this.media.removeIf(obj -> (obj.getId() == mediaId));
-  }
 
   public void addEmployee(Employee employee) {
     this.employees.add(employee);
