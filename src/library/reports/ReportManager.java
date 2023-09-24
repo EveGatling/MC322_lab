@@ -1,6 +1,7 @@
 package library.reports;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.Vector;
 
 import library.Library;
@@ -27,9 +28,10 @@ public class ReportManager {
 
   public static Vector<MediaUsageReport> generateMediaUsageReport(Library library) {
     Vector<MediaUsageReport> mediaList = new Vector<>();
+    HashMap<Integer, Media> list = library.getMedia();
 
-    for (Media media : library.getMedia()) {
-      mediaList.add(new MediaUsageReport(media));
+    for (HashMap.Entry<Integer, Media> entry : list.entrySet()) {
+      mediaList.add(new MediaUsageReport(entry.getValue()));
     }
 
     return mediaList;
@@ -62,9 +64,10 @@ public class ReportManager {
 
   public static Vector<ItemAvailabilityReport> generateItemAvailabilityReport(Library library) {
     Vector<ItemAvailabilityReport> mediaList = new Vector<>();
+    HashMap<Integer, Media> list = library.getMedia();
 
-    for (Media media : library.getMedia()) {
-      mediaList.add(new ItemAvailabilityReport(media));
+    for (HashMap.Entry<Integer, Media> entry : list.entrySet()) {
+      mediaList.add(new ItemAvailabilityReport(entry.getValue()));
     }
 
     return mediaList;

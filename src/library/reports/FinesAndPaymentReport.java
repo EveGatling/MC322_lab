@@ -15,7 +15,7 @@ public class FinesAndPaymentReport {
 
   public FinesAndPaymentReport(User user) {
     this.user = user;
-    for (Reservation reservation : user.getReservations()) {
+    for (Reservation<?> reservation : user.getReservations()) {
       if (reservation.getTotalFine() > 0 && reservation.getFineStatus() != FineStatus.PAID_OUT) {
         this.totalAmountOwed += reservation.getTotalFine();
         this.amountOwedList.add(reservation.getTotalFine());

@@ -6,8 +6,8 @@ public class IndividualRoom extends Room {
   private int roomNumber;
   private boolean hasComputer;
 
-  public IndividualRoom(int roomNumber, boolean hasComputer, LocalDate date, int startHour, int endHour) {
-    super(date, startHour, endHour);
+  public IndividualRoom(int roomNumber, boolean hasComputer, LocalDate date, int startHour, int endHour, int id) {
+    super(date, startHour, endHour, id);
     this.roomNumber = roomNumber;
     this.hasComputer = hasComputer;
   }

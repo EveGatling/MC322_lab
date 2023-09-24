@@ -5,8 +5,8 @@ import java.time.LocalDate;
 public class MediaRoom extends Room {
   private String[] equipment;
 
-  public MediaRoom(String[] equipment, LocalDate date, int startHour, int endHour) {
-    super(date, startHour, endHour);
+  public MediaRoom(String[] equipment, LocalDate date, int startHour, int endHour, int id) {
+    super(date, startHour, endHour, id);
     this.equipment = equipment;
   }
 

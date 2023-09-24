@@ -5,8 +5,8 @@ import library.constants.Equipment.Category;
 public class Printing extends Equipment {
   protected String name;
 
-  public Printing(String name) {
-    super(Category.PRINTING);
+  public Printing(String name, int id) {
+    super(Category.PRINTING, id);
     this.name = name;
   }
 

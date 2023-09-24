@@ -2,26 +2,24 @@ package library.actions;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.Period;
 import java.util.Optional;
 import java.util.Vector;
 
 import library.constants.Reserve;
 import library.constants.Reserve.FineStatus;
 import library.constants.Reserve.ReserveStatus;
-import library.media.Media;
 import library.users.User;
 
-public class Reservation {
+public class Reservation<T extends Reservable> {
 	// Attributes
 	private static int lastId = 0;
 	private int id;
 	private User user;
-	private Vector<Media> media;
+	private Vector<T> items;
 	private LocalDateTime beginningDate;
 	private LocalDateTime endingDate;
 	private LocalDateTime returnDate;
-	private Loan loan;
+	private Loan<T> loan;
 	private ReserveStatus status;
 	private FineStatus fineStatus;
 	private double totalFine; // Calculated after returned
@@ -32,7 +30,7 @@ public class Reservation {
 			throw new Error("Cannot reserve for more than 15 days.");
 		}
 
-		this.media = new Vector<>();
+		this.items = new Vector<>();
 		this.beginningDate = beginningDate;
 		this.endingDate = beginningDate.plusDays(days);
 		this.returnDate = null;
@@ -46,47 +44,47 @@ public class Reservation {
 		lastId += 1;
 	}
 
-	public void addMedia(Media media) {
-		if (this.media.size() >= Reserve.getReserveAmountLimit(user)) {
-			System.out.println("Cannot add any more media to this reservation.");
+	public void addItem(T item) {
+		if (this.items.size() >= Reserve.getReserveAmountLimit(user)) {
+			System.out.println("Cannot add any more items to this reservation.");
 			return;
 		}
 
-		if (!media.getIsAvailable()) {
-			System.out.println("Media is unavailable at the moment.");
+		if (!item.getIsAvailable()) {
+			System.out.println("Item is unavailable at the moment.");
 			return;
 		}
 
-		media.decreaseAvailableCopies();
-		media.increaseTimesReserved();
-		this.media.add(media);
+		item.decreaseAvailableCopies();
+		item.increaseTimesReserved();
+		this.items.add(item);
 	}
 
 	public void cancelReservation() {
-		this.returnMedia();
+		this.returnItem();
 		this.status = ReserveStatus.CANCELLED;
 	}
 
-	public void returnMedia() {
+	public void returnItem() {
 		// Return reserved/loaned copies
-		for (Media entry : media) {
+		for (T entry : items) {
 			entry.increaseAvailableCopies();
 		}
 
 		this.returnDate = LocalDateTime.now();
 	}
 
-	public Loan createLoan() {
+	public Loan<T> createLoan() {
 		if (this.loan != null) {
 			return this.loan;
 		}
 
-		Loan loan = new Loan(this.id, user, this, LocalDateTime.now(), endingDate);
+		Loan<T> loan = new Loan<>(this.id, user, this, LocalDateTime.now(), endingDate);
 		return loan;
 	}
 
-	public Vector<Media> getMedia() {
-		return this.media;
+	public Vector<T> getItems() {
+		return this.items;
 	}
 
 	public ReserveStatus getReservationStatus() {
@@ -138,8 +136,8 @@ public class Reservation {
 		this.user = user;
 	}
 
-	public void setMedia(Vector<Media> media) {
-		this.media = media;
+	public void setItems(Vector<T> item) {
+		this.items = item;
 	}
 
 	public LocalDateTime getBeginningDate() {
@@ -162,11 +160,11 @@ public class Reservation {
 		this.returnDate = returnDate;
 	}
 
-	public Loan getLoan() {
+	public Loan<T> getLoan() {
 		return this.loan;
 	}
 
-	public void setLoan(Loan loan) {
+	public void setLoan(Loan<T> loan) {
 		this.loan = loan;
 	}
 
@@ -186,26 +184,26 @@ public class Reservation {
 		return this.fineStatus;
 	}
 
-	public void removeMedia(Media media) {
-		Optional<Media> entry = this.media.stream().filter(obj -> (obj.getId() == media.getId())).findFirst();
+	public void removeItem(T item) {
+		Optional<T> entry = this.items.stream().filter(obj -> (obj.getId() == item.getId())).findFirst();
 
 		if (!entry.isPresent()) {
-			throw new Error("Media not reserved");
+			throw new Error("T not reserved");
 		}
 
 		entry.get().increaseAvailableCopies();
-		entry.ifPresent(this.media::remove);
+		entry.ifPresent(this.items::remove);
 	}
 
-	public Reservation renewReservationOfMediaItems(Vector<Media> items, int days) {
-		for (Media media : items) {
-			this.removeMedia(media);
+	public Reservation<T> renewReservationOfItems(Vector<T> items, int days) {
+		for (T item : items) {
+			this.removeItem(item);
 		}
 
-		Reservation newReservation = new Reservation(LocalDateTime.now(), days, this.user);
+		Reservation<T> newReservation = new Reservation<>(LocalDateTime.now(), days, this.user);
 
-		for (Media media : items) {
-			newReservation.addMedia(media);
+		for (T item : items) {
+			newReservation.addItem(item);
 		}
 
 		return newReservation;

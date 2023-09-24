@@ -1,20 +1,22 @@
 package library.events;
 
 import library.constants.Event.LibraryEventType;
+import library.users.User;
+import java.util.List;
 
 public class LibraryEvent {
   private LibraryEventType type;
-  protected List<Members> members;
+  protected List<User> members;
 
   public LibraryEvent(LibraryEventType type) {
     this.type = type;
   }
 
-  public List<Members> getMembers(){
+  public List<User> getMembers() {
     return members;
   }
 
-  public void addMembers(Members member){
+  public void addMembers(User member) {
     this.members.add(member);
   }
 

@@ -3,6 +3,8 @@ package library;
 import java.util.Vector;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import library.actions.Reservation;
 import library.equipments.Equipment;
@@ -14,43 +16,41 @@ import library.users.*;
 public class Library {
   private Vector<Employee> employees;
   private Vector<User> clients;
-  private Map<Integer, String> media;
-  private Set<String> categories;
+  private HashMap<Integer, Media> media;
+  private HashSet<String> categories;
 
   private Vector<Equipment> equipments;
   private Vector<LibraryEvent> events;
   private Vector<Room> rooms;
 
   public Library() {
-    this.media = new HashMap<Integer, String="">();
+    this.media = new HashMap<Integer, Media>();
     this.employees = new Vector<>();
     this.clients = new Vector<>();
     this.equipments = new Vector<>();
     this.events = new Vector<>();
     this.rooms = new Vector<>();
-    thid.categories = new Set<>();
+    this.categories = new HashSet<>();
   }
 
   public Vector<User> getClients() {
     return this.clients;
   }
 
-  public Map<Integer, String> getMedia(){
+  public HashMap<Integer, Media> getMedia() {
     return this.media;
   }
 
-  public void addMedia(Media media){
-    Integer id = media.getId();
-    String name = media.getTitle();
-    media.put(id, new Media(title, id));
+  public void addMedia(Media media) {
+    this.media.put((Integer) media.getId(), media);
   }
 
-  public Set<String> getCategories(){
+  public Set<String> getCategories() {
     return this.categories;
   }
 
-  public void addCategories(Set<String> categories){
-    this.categories.add(categories);
+  public void addCategory(String category) {
+    this.categories.add(category);
   }
 
   public Vector<User> getUsers() {
@@ -71,7 +71,6 @@ public class Library {
       }
     }
   }
-
 
   public void addEmployee(Employee employee) {
     this.employees.add(employee);

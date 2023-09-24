@@ -22,7 +22,7 @@ public class UserRoleReport {
         numberUsers += 1;
         totalReserves += user.getReservations().size();
 
-        for (Reservation reservation : user.getReservations()) {
+        for (Reservation<?> reservation : user.getReservations()) {
           if (reservation.getStatus() == ReserveStatus.LOANED || reservation.getStatus() == ReserveStatus.RETURNED) {
             totalLoans += 1;
           }

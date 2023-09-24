@@ -1,10 +1,14 @@
 package library.media;
 
-import library.constants.Media.*;
+import java.util.List;
+import java.util.Vector;
 
-public class Media {
+import library.constants.Media.*;
+import library.actions.Comment;
+import library.actions.Reservable;
+
+public class Media extends Reservable {
 	// Essential Attributes
-	protected int id;
 	protected int year;
 	protected String title;
 	protected String publisher;
@@ -14,7 +18,6 @@ public class Media {
 	protected MediaType type;
 
 	// Management Attributes
-	protected boolean isAvailable;
 	protected Domain domain;
 
 	// Additional Attributes
@@ -22,16 +25,13 @@ public class Media {
 	protected String locationShelf;
 	protected String locationBookcase;
 	protected PhysicalQuality quality;
-	protected int numberCopies;
-	protected int availableCopies;
 	protected List<Comment> comment;
-
-	protected int numberTimesReserved = 0;
-	protected int numberTimesLoaned = 0;
 
 	// Constructor
 	public Media(String title, String publisher, String genre, String summary, String coverUrl, MediaType type, int year,
 			int id) {
+		super(id);
+
 		// Essential Attributes
 		this.title = title;
 		this.publisher = publisher;
@@ -51,7 +51,7 @@ public class Media {
 		this.format = null;
 		this.quality = PhysicalQuality.EXCELENT;
 		this.availableCopies = 0;
-		this.comment = new List<Comment>();
+		this.comment = new Vector<Comment>();
 	}
 
 	// Setters and Getters
@@ -119,14 +119,6 @@ public class Media {
 		this.type = type;
 	}
 
-	public boolean getIsAvailable() {
-		return this.isAvailable;
-	}
-
-	public void setIsAvailable(boolean isAvailable) {
-		this.isAvailable = isAvailable;
-	}
-
 	public Domain getDomain() {
 		return this.domain;
 	}
@@ -167,62 +159,15 @@ public class Media {
 		this.quality = quality;
 	}
 
-	public int getNumberCopies() {
-		return this.numberCopies;
-	}
-
-	public void setNumberCopies(int numberCopies) {
-		this.numberCopies = numberCopies;
-	}
-
-	public int getAvailableCopies() {
-		return this.availableCopies;
-	}
-
-	public void decreaseAvailableCopies() {
-		if (this.availableCopies > 0) {
-			this.availableCopies -= 1;
-		}
-
-		if (this.availableCopies == 0) {
-			this.isAvailable = false;
-		}
-	}
-
-	public void increaseAvailableCopies() {
-		this.availableCopies += 1;
-
-		if (this.availableCopies > 0) {
-			this.isAvailable = true;
-		}
-	}
-
-	public void setAvailableCopies(int availableCopies) {
-		this.availableCopies = availableCopies;
-		this.isAvailable = availableCopies > 0;
-	}
-
-	public void increaseTimesReserved() {
-		this.numberTimesReserved += 1;
-	}
-
-	public void increaseTimesLoaned() {
-		this.numberTimesLoaned += 1;
-	}
-
-	public int getTimesReserved() {
-		return this.numberTimesReserved;
-	}
-
-	public int getTimesLoaned() {
-		return this.numberTimesLoaned;
-	}
-
-	public List<Comment> getComment(){
+	public List<Comment> getComment() {
 		return this.comment;
 	}
 
-	public void setComment(List<Comment> comment){
+	public void setComment(List<Comment> comment) {
 		this.comment = comment;
+	}
+
+	public void addComment(Comment comment) {
+		this.comment.add(comment);
 	}
 }

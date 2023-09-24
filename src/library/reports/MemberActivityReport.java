@@ -22,7 +22,7 @@ public class MemberActivityReport {
 
     this.user = user;
 
-    for (Reservation reservation : user.getReservations()) {
+    for (Reservation<?> reservation : user.getReservations()) {
       if (reservation.getBeginningDate().compareTo(startDate) < 0
           || reservation.getEndingDate().compareTo(endDate) > 0) {
         continue;
@@ -37,7 +37,7 @@ public class MemberActivityReport {
 
       if (reservation.getReservationStatus() == ReserveStatus.RETURNED) {
         this.devolutions += 1;
-        this.numberItemsReturned += reservation.getMedia().size();
+        this.numberItemsReturned += reservation.getItems().size();
       }
 
       if (reservation.getReservationStatus() == ReserveStatus.CANCELLED
@@ -45,7 +45,7 @@ public class MemberActivityReport {
         totalFine = 0;
       }
 
-      this.numberItemsReserved += reservation.getMedia().size();
+      this.numberItemsReserved += reservation.getItems().size();
       this.totalFines += totalFine;
     }
   }

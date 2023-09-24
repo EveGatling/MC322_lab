@@ -1,5 +1,6 @@
 package library.reports;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
 import java.util.stream.Collectors;
@@ -17,11 +18,11 @@ public class PopularItemsReport {
   public List<MediaUsageReport> elements;
 
   public PopularItemsReport(Library library, int limit) {
-    Vector<Media> list = library.getMedia();
+    HashMap<Integer, Media> list = library.getMedia();
     Vector<MediaUsageReport> reports = new Vector<>();
 
-    for (Media media : list) {
-      reports.add(new MediaUsageReport(media));
+    for (HashMap.Entry<Integer, Media> entry : list.entrySet()) {
+      reports.add(new MediaUsageReport(entry.getValue()));
     }
 
     reports.sort(new MediaUsageComparator());

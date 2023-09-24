@@ -2,12 +2,15 @@ package library.rooms;
 
 import java.time.LocalDate;
 
-public class Room {
+import library.actions.Reservable;
+
+public class Room extends Reservable {
   private LocalDate reserveDate;
   private int startHour;
   private int endHour;
 
-  public Room(LocalDate reserveDate, int startHour, int endHour) {
+  public Room(LocalDate reserveDate, int startHour, int endHour, int id) {
+    super(id);
     this.reserveDate = reserveDate;
     this.startHour = startHour;
     this.endHour = endHour;

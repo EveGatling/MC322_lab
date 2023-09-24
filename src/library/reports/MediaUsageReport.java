@@ -1,7 +1,5 @@
 package library.reports;
 
-import java.util.Vector;
-
 import library.media.Media;
 
 public class MediaUsageReport {
@@ -11,8 +9,8 @@ public class MediaUsageReport {
 
   public MediaUsageReport(Media media) {
     this.media = media;
-    numberTimesLoaned = media.getTimesLoaned();
-    numberTimesReserved = media.getTimesReserved();
+    numberTimesLoaned = media.getNumberTimesLoaned();
+    numberTimesReserved = media.getNumberTimesReserved();
   }
 
   public String toString() {

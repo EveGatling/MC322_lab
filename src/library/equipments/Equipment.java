@@ -1,11 +1,13 @@
 package library.equipments;
 
+import library.actions.Reservable;
 import library.constants.Equipment.Category;
 
-public class Equipment {
+public class Equipment extends Reservable {
   protected Category category;
 
-  public Equipment(Category category) {
+  public Equipment(Category category, int id) {
+    super(id);
     this.category = category;
   }
 

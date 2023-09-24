@@ -4,26 +4,25 @@ import java.util.Vector;
 import java.time.LocalDateTime;
 
 import library.constants.Reserve.ReserveStatus;
-import library.media.Media;
 import library.users.User;
 
-public class Loan {
+public class Loan<T extends Reservable> {
 	// Attributes
 	private int id;
 	private User user;
-	private Vector<Media> media;
-	private Reservation reservation;
+	private Vector<T> items;
+	private Reservation<T> reservation;
 	private LocalDateTime beginningDate;
 	private LocalDateTime returnDate;
 
 	// Class Constructor
-	public Loan(int id, User user, Reservation reservation, LocalDateTime beginningDate, LocalDateTime returnDate) {
+	public Loan(int id, User user, Reservation<T> reservation, LocalDateTime beginningDate, LocalDateTime returnDate) {
 		// Check if book was reserved. If not, create an instant reservation.
 		if (reservation == null) {
 			throw new Error("Loan cannot be instantiated without a previous reservation");
 		}
 
-		this.media = reservation.getMedia();
+		this.items = reservation.getItems();
 		this.user = user;
 		this.beginningDate = beginningDate;
 		this.returnDate = returnDate;
@@ -35,14 +34,14 @@ public class Loan {
 		this.reservation.setReservationStatus(ReserveStatus.LOANED);
 
 		// Generate statistics on the amount of times it was loaned
-		for (Media entry : this.media) {
+		for (T entry : this.items) {
 			entry.increaseTimesLoaned();
 		}
 	}
 
 	public void endLoan() {
 		this.reservation.setReservationStatus(ReserveStatus.RETURNED);
-		this.reservation.returnMedia();
+		this.reservation.returnItem();
 	}
 
 	public void renewLoan(LocalDateTime newReturnDate) {
@@ -67,15 +66,15 @@ public class Loan {
 		this.user = user;
 	}
 
-	public Vector<Media> getMedia() {
-		return this.media;
+	public Vector<T> getItems() {
+		return this.items;
 	}
 
-	public void setMedia(Vector<Media> media) {
-		this.media = media;
+	public void setItems(Vector<T> item) {
+		this.items = item;
 	}
 
-	public Reservation getReservation() {
+	public Reservation<T> getReservation() {
 		return this.reservation;
 	}
 

@@ -3,9 +3,10 @@ package library.users;
 import java.time.LocalDateTime;
 
 import java.util.Vector;
+import java.util.List;
 
 import library.actions.Reservation;
-import library.media.Media;
+import library.actions.Reservable;
 
 public class User {
 	// Essential Attributes
@@ -16,8 +17,7 @@ public class User {
 	protected long registrationNumber;
 	protected String address;
 	protected LocalDateTime registrationDate;
-	protected List<Reservation> reservations;
-	protected List<ReservationHistory> reservationHistory;
+	protected List<Reservation<?>> reservations;
 
 	// Constructor
 	public User(int id, long registrationNumber, String name, String email, String phone, String address) {
@@ -29,13 +29,11 @@ public class User {
 
 		this.phone = phone;
 		this.address = address;
-		this.reservations = new List<>();
-		this.reservationHistory = new List<>();
-
+		this.reservations = new Vector<>();
 	}
 
-	public Reservation createReservation(LocalDateTime startDate, int days) {
-		return new Reservation(startDate, days, this);
+	public <T extends Reservable> Reservation<T> createReservation(LocalDateTime startDate, int days) {
+		return new Reservation<T>(startDate, days, this);
 	}
 
 	public int getId() {
@@ -95,20 +93,12 @@ public class User {
 	}
 
 	// Reservation Management
-	public List<Reservation> getReservations() {
+	public List<Reservation<?>> getReservations() {
 		return this.reservations;
 	}
 
-	public List<reservationHistory> getReservationHistory(){
-		return this.reservationHistory;
-	}
-
-	public void addReservation(Reservation reservation) {
+	public void addReservation(Reservation<?> reservation) {
 		this.reservations.add(reservation);
-	}
-
-	public void addReservationHistory(ReservationHistory reserveHistory){
-		this.reservationHistory.add(reserveHistory);
 	}
 
 	public void removeReservation(int reservationId) {

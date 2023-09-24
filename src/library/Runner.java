@@ -47,18 +47,18 @@ public class Runner {
     library.addMedia(book1);
 
     // Equipments
-    Informatics laptop = new Informatics("Laptop");
-    Printing printer = new Printing("Printer");
-    Audiovisual headphones = new Audiovisual("Headphones");
+    Informatics laptop = new Informatics("Laptop", 1);
+    Printing printer = new Printing("Printer", 2);
+    Audiovisual headphones = new Audiovisual("Headphones", 3);
     library.addEquipment(laptop);
     library.addEquipment(printer);
     library.addEquipment(headphones);
 
     // Rooms
     String[] equipments = { "Projector" };
-    SilentRoom room1 = new SilentRoom(10, true, LocalDate.now(), 12, 15);
-    GroupRoom room2 = new GroupRoom(equipments, 10, LocalDate.now(), 12, 15);
-    IndividualRoom room3 = new IndividualRoom(123, true, LocalDate.now(), 12, 15);
+    SilentRoom room1 = new SilentRoom(10, true, LocalDate.now(), 12, 15, 4);
+    GroupRoom room2 = new GroupRoom(equipments, 10, LocalDate.now(), 12, 15, 5);
+    IndividualRoom room3 = new IndividualRoom(123, true, LocalDate.now(), 12, 15, 27);
     library.addRoom(room1);
     library.addRoom(room2);
     library.addRoom(room3);
@@ -75,25 +75,28 @@ public class Runner {
     LocalDateTime startFineDate = LocalDateTime.parse("2023-09-04T15:34");
     LocalDateTime endReportDate = LocalDateTime.parse("2023-09-30T15:34");
 
-    Reservation reservation1 = student1.createReservation(startFineDate, 2);
-    reservation1.addMedia(book1);
-    reservation1.addMedia(book1);
-    reservation1.addMedia(album1);
+    Reservation<Room> reservationRoom = student2.createReservation(startFineDate, 10);
+    reservationRoom.addItem(room2);
 
-    Reservation reservation2 = professor1.createReservation(startFineDate, 2);
-    reservation2.addMedia(book1);
-    reservation2.addMedia(album2);
-    reservation2.addMedia(album1);
-    reservation2.addMedia(album2);
-    reservation2.addMedia(album2);
-    reservation2.addMedia(book1);
-    reservation2.addMedia(book1);
-    reservation2.addMedia(book1); // This last one fails, more than 7
+    Reservation<Media> reservation1 = student1.createReservation(startFineDate, 2);
+    reservation1.addItem(book1);
+    reservation1.addItem(book1);
+    reservation1.addItem(album1);
+
+    Reservation<Media> reservation2 = professor1.createReservation(startFineDate, 2);
+    reservation2.addItem(book1);
+    reservation2.addItem(album2);
+    reservation2.addItem(album1);
+    reservation2.addItem(album2);
+    reservation2.addItem(album2);
+    reservation2.addItem(book1);
+    reservation2.addItem(book1);
+    reservation2.addItem(book1); // This last one fails, more than 7
 
     library.processFines();
 
     List<Media> newReservationMediaList = Arrays.asList(book1, album1);
-    Reservation reservation3 = reservation1.renewReservationOfMediaItems(new Vector<Media>(newReservationMediaList),
+    Reservation<Media> reservation3 = reservation1.renewReservationOfItems(new Vector<Media>(newReservationMediaList),
         12);
 
     // Reports
