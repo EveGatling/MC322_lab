@@ -26,8 +26,14 @@ public class Reservation<T extends Reservable> {
 
 	// Class Constructor
 	public Reservation(LocalDateTime beginningDate, int days, User user) {
-		if (days > Reserve.getReserveTimeLimit(user)) {
-			throw new Error("Cannot reserve for more than 15 days.");
+		Integer reserveLimit = Reserve.getReserveTimeLimit(user);
+
+		if (days > reserveLimit) {
+			throw new Error("Cannot reserve for more than " + reserveLimit.toString() + " days.");
+		}
+
+		if (user.hasPendingFines()) {
+			throw new Error("User cannot reserve. Reason: Pending Fines");
 		}
 
 		this.items = new Vector<>();
@@ -187,8 +193,9 @@ public class Reservation<T extends Reservable> {
 	public void removeItem(T item) {
 		Optional<T> entry = this.items.stream().filter(obj -> (obj.getId() == item.getId())).findFirst();
 
+		// 3.2.1 - Error if user tries to return item they did not loan
 		if (!entry.isPresent()) {
-			throw new Error("T not reserved");
+			throw new Error("Item is not reserved");
 		}
 
 		entry.get().increaseAvailableCopies();

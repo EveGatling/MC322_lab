@@ -12,7 +12,7 @@ public class CD extends Media {
 
 	// Class Constructor
 	public CD(String title, String publisher, String genre, String summary, String coverUrl, MediaType type, int year,
-			int id, String artist) {
+			int id, String artist, int duration) {
 		// Essential Attributes
 		super(title, publisher, genre, summary, coverUrl, MediaType.CD, year, id);
 
@@ -21,6 +21,7 @@ public class CD extends Media {
 		this.records = new Vector<String>();
 		this.totalDuration = 0;
 		this.format = MediaFormat.AUDIO;
+		this.totalDuration = duration;
 	}
 
 	public String getArtist() {

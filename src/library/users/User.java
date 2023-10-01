@@ -6,6 +6,7 @@ import java.util.Vector;
 import java.util.List;
 
 import library.actions.Reservation;
+import library.constants.Reserve.FineStatus;
 import library.actions.Reservable;
 
 public class User {
@@ -18,14 +19,17 @@ public class User {
 	protected String address;
 	protected LocalDateTime registrationDate;
 	protected List<Reservation<?>> reservations;
+	protected String password;
 
 	// Constructor
-	public User(int id, long registrationNumber, String name, String email, String phone, String address) {
+	public User(int id, long registrationNumber, String name, String email, String phone, String address,
+			String password) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.registrationNumber = registrationNumber;
 		this.registrationDate = LocalDateTime.now();
+		this.password = password;
 
 		this.phone = phone;
 		this.address = address;
@@ -34,6 +38,16 @@ public class User {
 
 	public <T extends Reservable> Reservation<T> createReservation(LocalDateTime startDate, int days) {
 		return new Reservation<T>(startDate, days, this);
+	}
+
+	public boolean hasPendingFines() {
+		for (Reservation<?> reservation : reservations) {
+			if (reservation.getFineStatus() == FineStatus.AWAITING_PAYMENT) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	public int getId() {
@@ -103,6 +117,10 @@ public class User {
 
 	public void removeReservation(int reservationId) {
 		this.reservations.removeIf(obj -> (obj.getId() == reservationId));
+	}
+
+	public String getPassword() {
+		return this.password;
 	}
 
 }

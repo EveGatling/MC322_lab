@@ -7,8 +7,9 @@ public class Employee extends User {
 	private String sector;
 
 	// Constructor
-	public Employee(int id, String name, String email, int registrationNumber, String phone, String address) {
-		super(id, registrationNumber, name, email, phone, address);
+	public Employee(int id, String name, String email, int registrationNumber, String phone, String address,
+			String password) {
+		super(id, registrationNumber, name, email, phone, address, password);
 	}
 
 	public String getSector() {

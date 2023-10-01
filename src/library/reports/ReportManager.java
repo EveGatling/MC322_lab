@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Vector;
 
 import library.Library;
+import library.auth.Account;
 import library.media.Media;
 import library.users.Employee;
 import library.users.MasterStudent;
@@ -14,6 +15,10 @@ import library.users.User;
 
 public class ReportManager {
   public static Vector<UserRoleReport> generateUserRoleReport(Library library) {
+    if (Account.isNotPermitted("system.report.generate")) {
+      throw new Error("Report Generation: Action Not Permitted.");
+    }
+
     UserRoleReport employees = new UserRoleReport(library.getEmployees(), Employee.class);
     UserRoleReport masterStudents = new UserRoleReport(library.getClients(), MasterStudent.class);
     UserRoleReport professors = new UserRoleReport(library.getClients(), Professor.class);
@@ -27,6 +32,10 @@ public class ReportManager {
   }
 
   public static Vector<MediaUsageReport> generateMediaUsageReport(Library library) {
+    if (Account.isNotPermitted("system.report.generate")) {
+      throw new Error("Report Generation: Action Not Permitted.");
+    }
+
     Vector<MediaUsageReport> mediaList = new Vector<>();
     HashMap<Integer, Media> list = library.getMedia();
 
@@ -38,11 +47,19 @@ public class ReportManager {
   }
 
   public static PopularItemsReport generatePopularItemsReport(Library library, int limit) {
+    if (Account.isNotPermitted("system.report.generate")) {
+      throw new Error("Report Generation: Action Not Permitted.");
+    }
+
     return new PopularItemsReport(library, limit);
   }
 
   public static Vector<MemberActivityReport> generateMemberActivityReport(Library library, LocalDateTime startDate,
       LocalDateTime endDate) {
+    if (Account.isNotPermitted("system.report.generate")) {
+      throw new Error("Report Generation: Action Not Permitted.");
+    }
+
     Vector<MemberActivityReport> userList = new Vector<>();
 
     for (User user : library.getUsers()) {
@@ -53,6 +70,10 @@ public class ReportManager {
   }
 
   public static Vector<FinesAndPaymentReport> generateFinesAndPaymentReport(Library library) {
+    if (Account.isNotPermitted("system.report.generate")) {
+      throw new Error("Report Generation: Action Not Permitted.");
+    }
+
     Vector<FinesAndPaymentReport> userList = new Vector<>();
 
     for (User user : library.getUsers()) {
@@ -63,6 +84,10 @@ public class ReportManager {
   }
 
   public static Vector<ItemAvailabilityReport> generateItemAvailabilityReport(Library library) {
+    if (Account.isNotPermitted("system.report.generate")) {
+      throw new Error("Report Generation: Action Not Permitted.");
+    }
+
     Vector<ItemAvailabilityReport> mediaList = new Vector<>();
     HashMap<Integer, Media> list = library.getMedia();
 

@@ -7,7 +7,10 @@ import java.util.List;
 import java.util.Vector;
 
 import library.actions.Reservation;
+import library.auth.Account;
 import library.employees.Administrator;
+import library.employees.Attendant;
+import library.employees.Manager;
 import library.equipments.*;
 import library.events.*;
 import library.media.*;
@@ -17,25 +20,33 @@ import library.users.*;
 
 public class Runner {
   public static void main(String[] args) {
+    Manager manager1 = new Manager(6, "Jeff", 6, "123123");
+    Attendant attendant1 = new Attendant(6, "Jeff", 6, "123123");
+    Administrator admin1 = new Administrator(6, "Jeff", 6, "123123");
+
+    // Login procedure (permission control)
+    Account.login(admin1, "123123");
+
     // Definition of the main library
     Library library = new Library();
 
     // Users
-    Student student1 = new Student(1, "John", 1);
-    Student student2 = new Student(2, "Caroline", 2);
-    MasterStudent mstudent1 = new MasterStudent(3, "Robert", 3);
-    Professor professor1 = new Professor(4, "Wilson", 4);
-    Administrator administrator1 = new Administrator(5, "Mark", 5);
+    Student student1 = new Student(1, "John", 1, "123123");
+    Student student2 = new Student(2, "Caroline", 2, "123123");
+    MasterStudent mstudent1 = new MasterStudent(3, "Robert", 3, "123123");
+    Professor professor1 = new Professor(4, "Wilson", 4, "123123");
     library.addClient(student1);
     library.addClient(student2);
     library.addClient(mstudent1);
     library.addClient(professor1);
-    library.addEmployee(administrator1);
+    library.addEmployee(admin1);
+    library.addEmployee(manager1);
+    library.addEmployee(attendant1);
 
     // Media
-    CD album1 = new CD("X", "BDi", "POP", null, null, null, 2014, 1, "Ed Sheeran");
-    CD album2 = new CD("+", "BDi", "POP", null, null, null, 2011, 1, "Ed Sheeran");
-    Book book1 = new Book("Call of Cthulhu", null, null, null, null, null, 0, 0, 0, "HP Lovecraft");
+    CD album1 = new CD("X", "BDi", "POP", null, null, null, 2014, 1, "Ed Sheeran", 60);
+    CD album2 = new CD("+", "BDi", "POP", null, null, null, 2011, 2, "Ed Sheeran", 60);
+    Book book1 = new Book("Call of Cthulhu", null, null, null, null, null, 0, 3, 0, "HP Lovecraft");
     album1.setAvailableCopies(5);
     album2.setAvailableCopies(3);
     book1.setAvailableCopies(10);
