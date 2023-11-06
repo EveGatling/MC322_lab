@@ -14,6 +14,7 @@ import library.employees.Manager;
 import library.equipments.*;
 import library.events.*;
 import library.media.*;
+import library.reflection.CReflect;
 import library.reports.*;
 import library.rooms.*;
 import library.users.*;
@@ -135,5 +136,14 @@ public class Runner {
     System.out.println("\nMedia Usage Report:");
     Vector<MediaUsageReport> mediaUsageReport = ReportManager.generateMediaUsageReport(library);
     System.out.println(mediaUsageReport);
+
+    // Uncomment lines below to print reflection
+    // System.out.println("\nMedia Reflection:");
+    // System.out.println(Arrays.toString(CReflect.getMediaAttributes(book1)));
+    // System.out.println(Arrays.toString(CReflect.getMediaMethods(book1)));
+    
+    // System.out.println("\nUser Reflection:");
+    // System.out.println(Arrays.toString(CReflect.getUserMethods(student1)));
+    // System.out.println(Arrays.toString(CReflect.getUserAttributes(student1)));
   }
 }
