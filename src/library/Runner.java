@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 
+import javax.security.auth.Subject;
+
 import library.actions.Reservation;
 import library.auth.Account;
 import library.employees.Administrator;
@@ -14,6 +16,9 @@ import library.employees.Manager;
 import library.equipments.*;
 import library.events.*;
 import library.media.*;
+import library.patterns.CObserver;
+import library.patterns.CSingleton;
+import library.patterns.EBookFactory;
 import library.reflection.CReflect;
 import library.reports.*;
 import library.rooms.*;
@@ -145,5 +150,20 @@ public class Runner {
     // System.out.println("\nUser Reflection:");
     // System.out.println(Arrays.toString(CReflect.getUserMethods(student1)));
     // System.out.println(Arrays.toString(CReflect.getUserAttributes(student1)));
+
+    // Singleton
+    CSingleton mediaManager = CSingleton.getInstance();
+    mediaManager.setLibrary(library);
+    mediaManager.getMedia();
+
+    // Observer
+    CObserver observer = new CObserver(library);
+    observer.subscribe(professor1);
+    observer.subscribe(student1);
+    observer.notifyUsers();
+    
+    // Factory
+    EBookFactory factory = new EBookFactory();
+    Ebook ebook = factory.createMedia();
   }
 }
