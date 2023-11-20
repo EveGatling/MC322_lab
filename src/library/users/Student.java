@@ -15,6 +15,8 @@ public class Student extends User {
 		super(id, registrationNumber, name, email, phone, address, password);
 	}
 
+	// Getters and Sectors
+
 	public String getCourse() {
 		return this.course;
 	}

@@ -1,7 +1,6 @@
 package library;
 
 import java.util.Vector;
-import java.util.Map;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -10,7 +9,6 @@ import library.actions.Reservation;
 import library.auth.Account;
 import library.equipments.Equipment;
 import library.events.LibraryEvent;
-import library.media.Book;
 import library.media.CD;
 import library.media.DVD;
 import library.media.Media;
@@ -36,6 +34,24 @@ public class Library {
     this.rooms = new Vector<>();
     this.categories = new HashSet<>();
   }
+
+  /**
+   * This method is responsible for processing all fines for all users in the Library.
+   * Call this whenever necessary to recalculate all fines.
+   */
+  public void processFines() {
+    if (Account.isNotPermitted("system.reservations.fine")) {
+      throw new Error("Not permitted to modify reservations");
+    }
+
+    for (User user : this.getUsers()) {
+      for (Reservation<?> reservation : user.getReservations()) {
+        reservation.calculateFine();
+      }
+    }
+  }
+
+  // Getter and Setters
 
   public Vector<User> getClients() {
     if (Account.isNotPermitted("system.users.list")) {
@@ -94,18 +110,6 @@ public class Library {
     }
 
     return this.employees;
-  }
-
-  public void processFines() {
-    if (Account.isNotPermitted("system.reservations.fine")) {
-      throw new Error("Not permitted to modify reservations");
-    }
-
-    for (User user : this.getUsers()) {
-      for (Reservation<?> reservation : user.getReservations()) {
-        reservation.calculateFine();
-      }
-    }
   }
 
   public void addEmployee(Employee employee) {

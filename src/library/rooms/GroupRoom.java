@@ -12,6 +12,8 @@ public class GroupRoom extends Room {
     this.capacity = capacity;
   }
 
+  // Getters and Sectors
+
   public int getCapacity() {
     return capacity;
   }

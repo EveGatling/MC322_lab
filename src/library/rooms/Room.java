@@ -16,6 +16,8 @@ public class Room extends Reservable {
     this.endHour = endHour;
   }
 
+  // Getters and Sectors
+  
   public LocalDate getReserveDate() {
     return reserveDate;
   }

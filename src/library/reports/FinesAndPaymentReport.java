@@ -13,6 +13,8 @@ public class FinesAndPaymentReport {
   public int totalAmountPaid;
   public User user;
 
+  // Calculate fines for the provided user, providing the list of reservations with pending
+  // fines and the total amount owed.
   public FinesAndPaymentReport(User user) {
     this.user = user;
     for (Reservation<?> reservation : user.getReservations()) {

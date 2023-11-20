@@ -7,6 +7,7 @@ public class ItemAvailabilityReport {
   public int totalAmountAvailable;
   public Media media;
 
+  // Generate a report on item availability, provided a Media
   public ItemAvailabilityReport(Media media) {
     this.media = media;
     this.totalAmountAvailable = media.getAvailableCopies();

@@ -12,6 +12,8 @@ public class IndividualRoom extends Room {
     this.hasComputer = hasComputer;
   }
 
+  // Getters and Sectors
+
   public int getRoomNumber() {
     return roomNumber;
   }

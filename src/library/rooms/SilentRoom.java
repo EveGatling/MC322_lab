@@ -12,6 +12,8 @@ public class SilentRoom extends Room {
     this.hasIndividualSeats = hasIndividualSeats;
   }
 
+  // Getters and Sectors
+
   public int getCapacity() {
     return capacity;
   }

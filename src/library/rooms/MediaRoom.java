@@ -10,6 +10,8 @@ public class MediaRoom extends Room {
     this.equipment = equipment;
   }
 
+  // Getters and Sectors
+
   public String[] getEquipment() {
     return equipment;
   }

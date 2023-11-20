@@ -7,6 +7,7 @@ public class MediaUsageReport {
   public int numberTimesReserved;
   public Media media;
 
+  // Provide a usage report for the media passed as an argument to this function
   public MediaUsageReport(Media media) {
     this.media = media;
     numberTimesLoaned = media.getNumberTimesLoaned();

@@ -1,7 +1,6 @@
 package library.users;
 
 //This class is an extension of User class
-
 public class Professor extends User {
 	// Attributes
 	private String faculty_institute;
@@ -16,6 +15,8 @@ public class Professor extends User {
 		super(id, registrationNumber, name, email, phone, address, password);
 	}
 
+	// Getters and Sectors
+
 	public String getFaculty_institute() {
 		return this.faculty_institute;
 	}
@@ -23,5 +24,4 @@ public class Professor extends User {
 	public void setFaculty_institute(String faculty_institute) {
 		this.faculty_institute = faculty_institute;
 	}
-
 }
